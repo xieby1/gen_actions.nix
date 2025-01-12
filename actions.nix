@@ -14,7 +14,7 @@ let
           steps = [
             { uses = "actions/checkout@v4"; }
             { uses = "cachix/install-nix-action@v27";
-              "with" = {nix_path = "nixpkgs=channel:nixos-24.05";}; }
+              "with" = {nix_path = "nixpkgs=channel:nixos-24.11";}; }
             { run = "nix-build ./mypkgs.nix -A ${name}"; }
       ];};};
     }
