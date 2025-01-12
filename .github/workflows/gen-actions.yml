@@ -5,16 +5,21 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      workflows: write
     steps:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
+        # https://github.com/orgs/community/discussions/35410#discussioncomment-7645702
+        # Fine-grained PAT with contents:write and workflows:write
+        # scopes
+        token: ${{ secrets.WORKFLOW_TOKEN }}
     - uses: cachix/install-nix-action@v27
       with:
         nix_path: nixpkgs=channel:nixos-24.11
     - run: make ymls
-    - run: |
+    - name: Make change to workflow file
+        GITHUB_TOKEN: ${{ github.token }}
+      run: |
         git add .
         git config --global user.name xieby1-gen-actions
         git config --global user.email "miao@wang.zhi"
