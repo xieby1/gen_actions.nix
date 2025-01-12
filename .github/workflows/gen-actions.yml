@@ -14,6 +14,8 @@ jobs:
         nix_path: nixpkgs=channel:nixos-24.11
     - run: make ymls
     - name: Make change to workflow file
+      with:
+        token: ${{ secrets.WORKFLOW_TOKEN }}
       run: |
         git add .
         git config --global user.name xieby1-gen-actions
